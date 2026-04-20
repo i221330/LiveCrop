@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Results artifacts (models + logs are large; keep plots/ tracked)
+results/logs/
+results/models/
+results/raw/
+*.zip
+events.out.tfevents.*
+
+# Jupyter
+.ipynb_checkpoints/

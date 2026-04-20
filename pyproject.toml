@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "irrigation-rl"
+version = "0.1.0"
+description = "Custom Gymnasium environment for irrigation scheduling + DQN/PPO/A2C benchmark"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Muhammad Abdullah" }]
+dependencies = [
+    "gymnasium>=0.29,<1.0",
+    "numpy>=1.23,<2.0",
+    "pandas>=2.0",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+train = ["stable-baselines3>=2.3,<3.0", "tensorboard>=2.14"]
+plot = ["matplotlib>=3.7"]
+dev = ["pytest>=7.0"]
+
+[tool.setuptools.packages.find]
+include = ["irrigation_env*", "agents*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
