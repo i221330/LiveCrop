@@ -20,6 +20,12 @@ python3 -m pytest -k test_seed    # single test by keyword
 # Generate baseline results + plots
 python3 -m agents.baselines --episodes 20
 
+# Train an RL agent (algo: dqn | ppo | a2c)
+python3 -m agents.train --algo ppo --timesteps 200000 --seed 42
+
+# Evaluate all trained models vs baselines (produces plots + CSV)
+python3 -m agents.evaluate --algos ppo dqn a2c
+
 # Dump a synthetic weather season as CSV
 python3 -m irrigation_env.weather --seed 0 --out /tmp/season.csv
 ```
@@ -71,4 +77,4 @@ Don't commit TensorBoard event files or model `.zip`s. Do commit the plots that 
 
 ## Roadmap status
 
-Week 1 (env + baselines) is complete. Week 2 onward (DQN/PPO/A2C training scripts, Colab notebook, seed sweeps) has not started — agents/ currently only contains baselines.
+Week 1 (env + baselines) is complete. Week 2 is complete: `agents/train.py` (DQN/PPO/A2C via SB3), `agents/evaluate.py` (model vs baseline comparison + trajectory plots), and `notebooks/irrigation_rl.ipynb` (Colab-ready, includes seed sweep section). Next: run the seed sweeps, commit plots, write README training section.
