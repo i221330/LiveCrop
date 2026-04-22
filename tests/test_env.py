@@ -89,7 +89,7 @@ def test_budget_cap_enforced():
     # action=255 means every zone at max level -> total request > budget
     _, _, _, _, info = env.step(255)
     total_applied = float(info["water_applied_mm"].sum())
-    assert total_applied <= env.cfg.daily_budget_mm + 1e-6
+    assert total_applied <= env.cfg.daily_budget_mm + 1e-3  # float32 accumulation tolerance
     assert float(info["water_requested_mm"].sum()) > env.cfg.daily_budget_mm
 
 

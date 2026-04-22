@@ -123,6 +123,7 @@ def _cfg_from_raw(raw: dict) -> EnvConfig:
         forecast_horizon=int(raw["forecast"]["horizon_days"]),
         soil=soil,
         initial_moisture_theta=float(z["initial_moisture_theta"]),
+        zone_moisture_noise_fraction=float(z.get("zone_moisture_noise_fraction", 0.0)),
         kc_stages=[tuple(s) for s in raw["crop"]["kc_stages"]],
         ky_sensitivity=float(raw["crop"]["ky_sensitivity"]),
         water_cost_per_mm=float(raw["reward"]["water_cost_per_mm"]),

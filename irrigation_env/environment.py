@@ -47,6 +47,7 @@ class EnvConfig:
     forecast_horizon: int
     soil: SoilParams
     initial_moisture_theta: float
+    zone_moisture_noise_fraction: float  # ±fraction of initial moisture added per zone at reset
     kc_stages: KcStages
     ky_sensitivity: float
     water_cost_per_mm: float
@@ -84,6 +85,7 @@ def load_config(path: Optional[Path] = None) -> EnvConfig:
         forecast_horizon=int(raw["forecast"]["horizon_days"]),
         soil=soil,
         initial_moisture_theta=float(zones["initial_moisture_theta"]),
+        zone_moisture_noise_fraction=float(zones.get("zone_moisture_noise_fraction", 0.0)),
         kc_stages=[tuple(s) for s in raw["crop"]["kc_stages"]],
         ky_sensitivity=float(raw["crop"]["ky_sensitivity"]),
         water_cost_per_mm=float(raw["reward"]["water_cost_per_mm"]),
@@ -148,7 +150,19 @@ class IrrigationEnv(gym.Env):
         initial_w = (
             self.cfg.initial_moisture_theta * self.cfg.soil.root_zone_depth_mm
         )
-        self._water = np.full(self.cfg.num_zones, initial_w, dtype=np.float32)
+        if self.cfg.zone_moisture_noise_fraction > 0.0:
+            noise = self.np_random.uniform(
+                -self.cfg.zone_moisture_noise_fraction,
+                self.cfg.zone_moisture_noise_fraction,
+                size=self.cfg.num_zones,
+            )
+            self._water = np.clip(
+                initial_w * (1.0 + noise),
+                self.cfg.soil.wp_mm,
+                self.cfg.soil.sat_mm,
+            ).astype(np.float32)
+        else:
+            self._water = np.full(self.cfg.num_zones, initial_w, dtype=np.float32)
         self._day = 0
         self._stress_history = []
         self._episode_water_used = 0.0
