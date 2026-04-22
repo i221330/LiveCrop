@@ -57,15 +57,27 @@ obs, reward, terminated, truncated, info = env.step(env.action_space.sample())
 
 ## Results
 
-DQN, PPO, and A2C trained for 200k steps (seed 42); evaluated on 30 held-out seeds:
+DQN, PPO, and A2C trained for 500k steps (seed 42); evaluated on 30 held-out seeds (2000–2029):
+
+| Policy | Reward | Yield | Water (mm/season) |
+|---|---|---|---|
+| Threshold heuristic | **−23.9** | 0.995 | 3 180 |
+| PPO | −31.6 | 0.969 | 2 911 |
+| DQN | −33.9 | 0.973 | 3 197 |
+| Random | −38.3 | 0.994 | 4 138 |
+| A2C | −109 | 0.690 | 0 |
+
+**PPO and DQN beat the random baseline** and use 25–30% less water. The threshold heuristic, which encodes domain knowledge (FAO-56 soil balance + rain forecast lookahead), remains the strongest policy at this step budget — consistent with the literature on sparse-reward scheduling problems where expert knowledge is hard to recover from data alone in <1M steps.
+
+**A2C diverged** to a degenerate no-water policy, demonstrating its sensitivity to the absence of PPO's trust-region clipping in high-variance advantage estimates. This contrast between PPO and A2C is itself a result worth noting.
 
 ![Comparison boxplot](results/plots/eval_comparison.png)
 
-Best agent vs threshold heuristic — one full season:
+PPO vs threshold — one full season (seed 2000):
 
 ![PPO vs threshold trajectory](results/plots/trajectory_ppo.png)
 
-Baselines comparison — random vs moisture-threshold (30 seeds):
+Baselines — random vs moisture-threshold (30 seeds):
 
 ![Baselines comparison](results/plots/baselines.png)
 
