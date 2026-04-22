@@ -85,4 +85,10 @@ Don't commit TensorBoard event files or model `.zip`s. Do commit the plots that 
 
 ## Roadmap status
 
-Weeks 1–4 complete. Week 4 added: `configs/agents.yaml` (externalised hyperparams), `agents/sweep.py` (multi-seed ribbon plot via EvalCallback), README polish with Colab badge. Next: run seed sweep on Colab, commit `sweep_ppo.png` and `sweep_ppo.json`, final portfolio review.
+Weeks 1–4 complete. Week 5: Streamlit dashboard (`app.py`) with three tabs:
+- **Simulate** — run any policy (random / threshold / trained model) for a chosen seed; four-panel interactive Plotly figure (moisture, water applied, rain+ET0, cumulative reward)
+- **Compare** — portfolio plots + eval summary table from `results/raw/eval_summary.json`
+- **Tune** — sliders for reward weights + daily budget; reruns threshold policy live to show impact
+
+Run with: `streamlit run app.py`
+Deploy: Streamlit Community Cloud (connect GitHub repo, set main file to `app.py`).

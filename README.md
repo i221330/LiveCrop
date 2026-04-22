@@ -20,13 +20,14 @@ The environment implements a **simplified FAO-56 soil water balance** coupled to
 
 ```bash
 pip install -r requirements.txt
-pip install -e ".[train,plot,dev]"
+pip install -e ".[train,plot,dev,gui]"
 
 pytest                                                # verify environment
 python3 -m agents.baselines --episodes 20             # run baselines
 python3 -m agents.train --algo ppo --timesteps 200000 # train PPO
 python3 -m agents.evaluate --algos ppo dqn a2c        # compare all agents
 python3 -m agents.sweep --algo ppo --seeds 5          # seed sweep + ribbon plot
+streamlit run app.py                                  # launch dashboard
 ```
 
 ```python
@@ -75,6 +76,7 @@ agents/
   train.py             unified SB3 training script (DQN / PPO / A2C)
   evaluate.py          load saved models, run seed sweeps, produce plots
   sweep.py             multi-seed sweep with learning-curve ribbon plot
+app.py                 Streamlit dashboard — Simulate / Compare / Tune tabs
 configs/
   env.yaml             env physics + reward weights
   agents.yaml          SB3 hyperparameters (tune here, not in code)
