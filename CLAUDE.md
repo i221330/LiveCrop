@@ -6,6 +6,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 A custom Gymnasium environment (`Irrigation-v0`) simulating multi-zone irrigation scheduling, plus a planned benchmark of DQN, PPO, and A2C from Stable-Baselines3. The portfolio artifact is the environment itself — the algorithms are off-the-shelf.
 
+## Colab notebook
+
+For Google Colab setup, troubleshooting, and dependency issues, **see [`Colab.md`](Colab.md)**.  
+Quick start: https://colab.research.google.com/github/i221330/LiveCrop/blob/main/notebooks/irrigation_rl.ipynb
+
 ## Common commands
 
 ```bash
