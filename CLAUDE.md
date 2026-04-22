@@ -31,6 +31,9 @@ python3 -m agents.train --algo ppo --timesteps 200000 --seed 42
 # Evaluate all trained models vs baselines (produces plots + CSV)
 python3 -m agents.evaluate --algos ppo dqn a2c
 
+# Seed sweep: train one algo across N seeds, emit ribbon plot
+python3 -m agents.sweep --algo ppo --seeds 5 --timesteps 200000
+
 # Dump a synthetic weather season as CSV
 python3 -m irrigation_env.weather --seed 0 --out /tmp/season.csv
 ```
@@ -82,4 +85,4 @@ Don't commit TensorBoard event files or model `.zip`s. Do commit the plots that 
 
 ## Roadmap status
 
-Week 1 (env + baselines) is complete. Week 2 is complete: `agents/train.py` (DQN/PPO/A2C via SB3), `agents/evaluate.py` (model vs baseline comparison + trajectory plots), and `notebooks/irrigation_rl.ipynb` (Colab-ready, includes seed sweep section). Next: run the seed sweeps, commit plots, write README training section.
+Weeks 1–4 complete. Week 4 added: `configs/agents.yaml` (externalised hyperparams), `agents/sweep.py` (multi-seed ribbon plot via EvalCallback), README polish with Colab badge. Next: run seed sweep on Colab, commit `sweep_ppo.png` and `sweep_ppo.json`, final portfolio review.

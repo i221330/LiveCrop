@@ -22,10 +22,11 @@ env/
 *.swp
 .DS_Store
 
-# Results artifacts (models + logs are large; keep plots/ tracked)
+# Results artifacts (models + logs are large; keep plots/ and raw JSON tracked)
 results/logs/
 results/models/
-results/raw/
+results/raw/*.csv
+results/raw/*.npz
 *.zip
 events.out.tfevents.*
 

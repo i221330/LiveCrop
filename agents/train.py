@@ -13,43 +13,21 @@ import time
 from pathlib import Path
 from typing import Any, Dict
 
+import yaml
 import numpy as np
 
 import irrigation_env  # noqa: F401 - registers Irrigation-v0
 
-# Per-algorithm hyperparameter defaults tuned for Irrigation-v0.
-# Episodes are exactly 150 steps, so on-policy n_steps aligns to one season.
-_ALGO_DEFAULTS: Dict[str, Dict[str, Any]] = {
-    "dqn": {
-        "learning_rate": 1e-4,
-        "buffer_size": 50_000,
-        "learning_starts": 1_500,
-        "batch_size": 64,
-        "gamma": 0.99,
-        "exploration_fraction": 0.3,
-        "exploration_final_eps": 0.05,
-        "target_update_interval": 500,
-        "train_freq": 4,
-        "gradient_steps": 1,
-    },
-    "ppo": {
-        "learning_rate": 3e-4,
-        "n_steps": 150,
-        "batch_size": 150,
-        "n_epochs": 10,
-        "gamma": 0.99,
-        "gae_lambda": 0.95,
-        "ent_coef": 0.01,
-        "clip_range": 0.2,
-    },
-    "a2c": {
-        "learning_rate": 7e-4,
-        "n_steps": 150,
-        "gamma": 0.99,
-        "gae_lambda": 0.95,
-        "ent_coef": 0.01,
-    },
-}
+_AGENTS_CONFIG_PATH = Path(__file__).resolve().parent.parent / "configs" / "agents.yaml"
+
+
+def _load_algo_defaults() -> Dict[str, Dict[str, Any]]:
+    with open(_AGENTS_CONFIG_PATH) as f:
+        return yaml.safe_load(f)
+
+
+def get_algo_defaults(algo: str) -> Dict[str, Any]:
+    return dict(_load_algo_defaults()[algo])
 
 
 def make_model(algo: str, env, log_dir: Path, seed: int):
@@ -62,7 +40,7 @@ def make_model(algo: str, env, log_dir: Path, seed: int):
         seed=seed,
         tensorboard_log=str(log_dir),
         verbose=0,
-        **_ALGO_DEFAULTS[algo],
+        **get_algo_defaults(algo),
     )
 
 
