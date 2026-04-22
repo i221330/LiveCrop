@@ -2,7 +2,7 @@
 
 A custom Gymnasium environment for irrigation scheduling, benchmarked across **DQN, PPO, and A2C** using Stable-Baselines3.
 
-> **Status:** Week 1 — environment + baselines. Training pipeline coming in Week 2.
+> **Status:** Week 1–3 complete. Environment, baselines, and RL training pipeline (DQN/PPO/A2C) with Colab notebook.
 
 ## Problem
 
@@ -49,12 +49,24 @@ notebooks/        # Colab demo
 results/          # logs, models, plots (gitignored except plots/)
 ```
 
+## Results
+
+**Comparison (Week 3):** DQN, PPO, and A2C trained for 200k steps each; evaluated on 30 held-out seeds.
+
+![Comparison boxplot](results/plots/eval_comparison.png)
+
+![PPO vs threshold trajectory](results/plots/trajectory_ppo.png)
+
+To train and evaluate:
+- **Colab (recommended):** https://colab.research.google.com/github/i221330/LiveCrop/blob/main/notebooks/irrigation_rl.ipynb
+- **Local:** `python3 -m agents.train --algo ppo --timesteps 200000 && python3 -m agents.evaluate --algos ppo dqn a2c`
+
 ## Roadmap
 
 - [x] Week 1 — custom env, dynamics, tests, random + heuristic baselines
-- [ ] Week 2 — DQN training, Colab notebook
-- [ ] Week 3 — PPO, A2C, seed sweeps, hyperparameter tuning
-- [ ] Week 4 — final plots, architecture diagram, demo GIF, polish
+- [x] Week 2 — DQN/PPO/A2C training scripts, Colab notebook, evaluation pipeline
+- [x] Week 3 — train all agents, generate comparison plots, push from Colab
+- [ ] Week 4 — seed sweeps, hyperparameter tuning, final README polish
 
 ## License
 
