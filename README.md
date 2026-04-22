@@ -65,6 +65,14 @@ Best agent vs threshold heuristic — one full season:
 
 ![PPO vs threshold trajectory](results/plots/trajectory_ppo.png)
 
+Baselines comparison — random vs moisture-threshold (30 seeds):
+
+![Baselines comparison](results/plots/baselines.png)
+
+PPO seed sweep — learning curve ribbon (5 seeds):
+
+![PPO seed sweep](results/plots/sweep_ppo.png)
+
 ---
 
 ## Repo layout
@@ -93,7 +101,7 @@ results/plots/         tracked portfolio plots
 - [x] Week 2 — DQN/PPO/A2C training scripts, evaluation pipeline, Colab notebook
 - [x] Week 3 — train all agents on Colab, generate comparison + trajectory plots
 - [x] Week 4 — hyperparameter config file, seed sweep with ribbon plot, README polish
-- [ ] Week 5 — seed sweep results committed, final portfolio review
+- [x] Week 5 — zone heterogeneity, calibrated reward config, dashboard, final portfolio review
 
 ---
 
