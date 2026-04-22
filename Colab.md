@@ -26,15 +26,15 @@ This file documents how to run the LiveCrop training pipeline on Google Colab.
 
 ## Dependencies & Version Pinning
 
-Colab's pre-installed numpy often conflicts with gymnasium and SB3. To avoid the `ValueError: numpy.dtype size changed` error, `requirements.txt` pins:
+On Colab, use numpy 2.x with gymnasium 1.x. The working combination is:
 
 ```
-numpy==1.26.4
-gymnasium==0.29.1
-stable-baselines3==2.3.0
+numpy>=2.0,<3.0
+gymnasium>=1.0,<2.0
+stable-baselines3>=2.3,<3.0
 ```
 
-These versions are tested to work together on Colab Python 3.10/3.12.
+**Do not pin numpy to 1.26.x** — it causes binary incompatibility errors on Colab. The ranges above let pip resolve to compatible versions automatically (typically numpy 2.4.4 + gymnasium 1.2.3).
 
 ## Setup steps
 
@@ -94,19 +94,20 @@ GH_TOKEN = userdata.get("GITHUB_TOKEN")
 
 ## Troubleshooting
 
-### `ValueError: numpy.dtype size changed`
+### `ValueError: numpy.dtype size changed` or `ImportError: numpy._core.multiarray failed to import`
 
-**Cause:** numpy version conflict between Colab's pre-installed version and what SB3 expects.
+**Cause:** Kernel import cache corruption from uninstall/reinstall, or numpy 1.26.x incompatibility with gymnasium 1.x on Colab.
 
 **Fix:**
-1. Restart kernel: **Runtime** → **Restart session**
-2. Re-run Section 1 install cell
-3. If still fails, manually run:
-   ```python
-   !pip install --upgrade --force-reinstall numpy==1.26.4 gymnasium==0.29.1 stable-baselines3==2.3.0
-   %cd LiveCrop  # if you left the dir
-   !pip install -q -e '.[train,plot,dev]'
+1. **Restart the kernel completely:** **Runtime** → **Restart session** (do not uninstall packages mid-session)
+2. Run the install cell fresh — pip will resolve to numpy 2.4.4 + gymnasium 1.2.3 automatically
+3. If you manually edited requirements.txt, revert to:
    ```
+   numpy>=2.0,<3.0
+   gymnasium>=1.0,<2.0
+   stable-baselines3>=2.3,<3.0
+   ```
+   Then re-run the install.
 
 ### Import errors after install
 
