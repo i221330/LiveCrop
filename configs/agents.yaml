@@ -4,7 +4,7 @@
 
 dqn:
   learning_rate: 1.0e-4
-  buffer_size: 50000
+  buffer_size: 100000
   learning_starts: 1500
   batch_size: 64
   gamma: 0.99
@@ -25,7 +25,7 @@ ppo:
   clip_range: 0.20
 
 a2c:
-  learning_rate: 7.0e-4
+  learning_rate: 3.0e-4
   n_steps: 150
   gamma: 0.99
   gae_lambda: 0.95

@@ -69,10 +69,6 @@ Baselines comparison — random vs moisture-threshold (30 seeds):
 
 ![Baselines comparison](results/plots/baselines.png)
 
-PPO seed sweep — learning curve ribbon (5 seeds):
-
-![PPO seed sweep](results/plots/sweep_ppo.png)
-
 ---
 
 ## Repo layout
