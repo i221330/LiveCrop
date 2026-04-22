@@ -1,11 +1,11 @@
 {
-  "reward_mean": -51.5687408314746,
-  "reward_std": 2.733492798453819,
-  "yield_mean": 0.9269915005088285,
-  "yield_std": 0.005335553978320061,
-  "water_mean_mm": 3023.75,
-  "water_std_mm": 57.81165539923589,
+  "reward_mean": -32.026355850734326,
+  "reward_std": 2.6906798699417527,
+  "yield_mean": 0.9667125946104619,
+  "yield_std": 0.005274140760408927,
+  "water_mean_mm": 2874.25,
+  "water_std_mm": 69.07016360194899,
   "algo": "ppo",
   "seed": 42,
-  "timesteps": 200000
+  "timesteps": 500000
 }
